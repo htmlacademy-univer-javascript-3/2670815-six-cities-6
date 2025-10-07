@@ -5,6 +5,7 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import OfferScreen from '../offer-screen/offer-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
   offersCount: number;
@@ -16,7 +17,14 @@ const App: FC<AppProps> = ({ offersCount }) => (
     <Routes>
       <Route path="/" element={<MainScreen offersCount={offersCount} />} />
       <Route path="/login" element={<LoginScreen />} />
-      <Route path="/favorites" element={<FavoritesScreen />} />
+      <Route
+        path="/favorites"
+        element={
+          <PrivateRoute isAuthorized={false}>
+            <FavoritesScreen />
+          </PrivateRoute>
+        }
+      />
       <Route path="/offer/:id" element={<OfferScreen />} />
       <Route path="*" element={<NotFoundScreen />} />
     </Routes>
