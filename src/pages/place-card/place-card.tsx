@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { getRatingWidth } from './utils';
 import type { Offer } from '../../mocks/offers';
+import { Link } from 'react-router-dom';
 
 type PlaceCardProps = {
   offer?: Offer;
@@ -34,6 +35,7 @@ const PlaceCard: FC<PlaceCardProps> = ({
   const finalIsPremium = offer?.isPremium ?? isPremium;
   const finalIsBookmarked = offer?.isBookmarked ?? isBookmarked;
   const finalImage = offer?.previewImage ?? imageSrc ?? '';
+  const offerPath = offer?.id ? `/offer/${offer.id}` : '#';
 
   return (
     <article className="cities__card place-card">
@@ -44,7 +46,7 @@ const PlaceCard: FC<PlaceCardProps> = ({
       )}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={offerPath}>
           <img
             className="place-card__image"
             src={finalImage}
@@ -52,7 +54,7 @@ const PlaceCard: FC<PlaceCardProps> = ({
             height={imageHeight}
             alt={finalTitle}
           />
-        </a>
+        </Link>
       </div>
 
       <div className="place-card__info">
@@ -82,7 +84,7 @@ const PlaceCard: FC<PlaceCardProps> = ({
         </div>
 
         <h2 className="place-card__name">
-          <a href="#">{finalTitle}</a>
+          <Link to={offerPath}>{finalTitle}</Link>
         </h2>
         <p className="place-card__type">{finalType}</p>
       </div>
