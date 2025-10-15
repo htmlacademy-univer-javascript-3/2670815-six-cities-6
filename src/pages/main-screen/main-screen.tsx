@@ -4,7 +4,7 @@
  * В дальнейшем будет декомпозирован на подкомпоненты.
  */
 import type { FC } from 'react';
-import PlaceCard from '../place-card/place-card';
+import OffersList from '../offers-list/offers-list';
 import type { Offer } from '../../mocks/offers';
 
 type MainScreenProps = {
@@ -120,11 +120,7 @@ const MainScreen: FC<MainScreenProps> = ({ offersCount, offers }) => (
                 </li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer) => (
-                <PlaceCard key={offer.id} offer={offer} />
-              ))}
-            </div>
+            <OffersList offers={offers} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
