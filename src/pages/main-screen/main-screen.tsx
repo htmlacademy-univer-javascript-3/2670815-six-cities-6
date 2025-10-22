@@ -7,7 +7,8 @@ import { type FC, useMemo } from 'react';
 import OffersList from '../offers-list/offers-list';
 import type { Offer } from '../../mocks/offers';
 import { Link } from 'react-router-dom';
-import Map, { type Point } from '../../components/map/map';
+import type { Point } from '../../components/map/types';
+import Map from '../../components/map/map';
 
 type MainScreenProps = {
   offersCount: number;
@@ -51,7 +52,7 @@ const MainScreen: FC<MainScreenProps> = ({ offersCount, offers }) => {
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
-                  </span>
+                      </span>
                     <span className="header__favorite-count">3</span>
                   </Link>
                 </li>
@@ -117,7 +118,7 @@ const MainScreen: FC<MainScreenProps> = ({ offersCount, offers }) => {
                 <svg className="places__sorting-arrow" width="7" height="4">
                   <use xlinkHref="#icon-arrow-select"></use>
                 </svg>
-              </span>
+                </span>
                 <ul className="places__options places__options--custom places__options--opened">
                   <li className="places__option places__option--active" tabIndex={0}>
                     Popular

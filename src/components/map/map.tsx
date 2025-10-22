@@ -3,19 +3,8 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import {Offer} from '../../mocks/offers';
 import 'leaflet/dist/leaflet.css';
-
-export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-
-export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
-
-export type Point = {
-  title: string;
-  lat: number;
-  lng: number;
-};
-export type Points = Point[];
+import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from './constants.ts';
+import {Point, Points} from './types.ts';
 
 type MapProps = {
   city: Offer['city'];
@@ -66,6 +55,6 @@ const Map: FC<MapProps> = (props) => {
   }, [map, points, selectedPoint]);
 
   return <div className="cities__map" ref={mapRef}></div>;
-}
+};
 
 export default Map;
