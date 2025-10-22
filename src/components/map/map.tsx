@@ -10,16 +10,12 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
-// Local types for points to display on the map
 export type Point = {
   title: string;
   lat: number;
   lng: number;
 };
 export type Points = Point[];
-
-// Map expects a city object (name + location) from Offer
-// We only use the location to center the map
 
 type MapProps = {
   city: Offer['city'];
@@ -69,7 +65,6 @@ const Map: FC<MapProps> = (props) => {
     }
   }, [map, points, selectedPoint]);
 
-  // The map must be rendered in the .cities__map container
   return <div className="cities__map" ref={mapRef}></div>;
 }
 

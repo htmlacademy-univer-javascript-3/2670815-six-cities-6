@@ -2,6 +2,8 @@ import {MutableRefObject, useEffect, useRef, useState} from 'react';
 import {Map as LeafletMap, TileLayer} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+// Hook that initializes and returns a Leaflet map instance bound to the provided container
+// It also updates the map view when the city changes
 
 type CityLike = {
   location: {
