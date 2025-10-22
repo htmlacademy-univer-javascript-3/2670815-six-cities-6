@@ -25,7 +25,7 @@ const OfferScreen: FC = () => {
               <Link className="header__logo-link" to="/">
                 <img
                   className="header__logo"
-                  src="img/logo.svg"
+                  src="markup/img/logo.svg"
                   alt="6 cities logo"
                   width="81"
                   height="41"
@@ -121,7 +121,7 @@ const OfferScreen: FC = () => {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                  <img className="offer__avatar user__avatar" src="markup/img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="offer__user-name"> Angelina </span>
                   <span className="offer__user-status"> Pro </span>
@@ -137,7 +137,7 @@ const OfferScreen: FC = () => {
                   <li className="reviews__item">
                     <div className="reviews__user user">
                       <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
+                        <img className="reviews__avatar user__avatar" src="markup/img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
                       </div>
                       <span className="reviews__user-name"> Max </span>
                     </div>
@@ -166,7 +166,7 @@ const OfferScreen: FC = () => {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <Link to="/">
-                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="markup/img/room.jpg" width="260" height="200" alt="Place image" />
                   </Link>
                 </div>
                 <div className="place-card__info">
@@ -194,7 +194,7 @@ const OfferScreen: FC = () => {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <Link to="/">
-                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="markup/img/apartment-02.jpg" width="260" height="200" alt="Place image" />
                   </Link>
                 </div>
                 <div className="place-card__info">
@@ -223,7 +223,7 @@ const OfferScreen: FC = () => {
                 <div className="place-card__mark"><span>Premium</span></div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <Link to="/">
-                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="markup/img/apartment-03.jpg" width="260" height="200" alt="Place image" />
                   </Link>
                 </div>
                 <div className="place-card__info">
