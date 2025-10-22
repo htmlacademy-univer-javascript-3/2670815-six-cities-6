@@ -33,7 +33,7 @@ const PlaceCard: FC<PlaceCardProps> = ({
   const finalPrice = offer?.price ?? price ?? 0;
   const finalRating = offer?.rating ?? rating ?? 0;
   const finalIsPremium = offer?.isPremium ?? isPremium;
-  const finalIsBookmarked = offer?.isBookmarked ?? isBookmarked;
+  const finalIsBookmarked = offer?.isFavorite ?? isBookmarked;
   const finalImage = offer?.previewImage ?? imageSrc ?? '';
   const offerPath = offer?.id ? `/offer/${offer.id}` : '#';
 
