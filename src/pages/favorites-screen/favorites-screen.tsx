@@ -1,3 +1,4 @@
+// src/pages/favorites-screen/favorites-screen.tsx
 import type { FC } from 'react';
 import type { Offer } from '../../mocks/offers';
 import OffersList from '../offers-list/offers-list';
@@ -8,14 +9,14 @@ type FavoritesScreenProps = {
 };
 
 const FavoritesScreen: FC<FavoritesScreenProps> = ({ offers }) => {
-  // group offers by city
-  const groups = offers.reduce<Record<string, Offer[]>>((groupsAcc, offer) => {
-    const city = offer.city || 'Unknown';
-    if (!groupsAcc[city]) {
-      groupsAcc[city] = [];
-    }
-    groupsAcc[city].push(offer);
-    return groupsAcc;
+  // берём только избранные
+  const favs = offers.filter((o) => o.isFavorite);
+
+  // группируем по названию города (строковый ключ!)
+  const groups = favs.reduce<Record<string, Offer[]>>((acc, offer) => {
+    const cityName = offer.city?.name ?? 'Unknown';
+    (acc[cityName] ??= []).push(offer);
+    return acc;
   }, {});
 
   return (
@@ -27,7 +28,7 @@ const FavoritesScreen: FC<FavoritesScreenProps> = ({ offers }) => {
               <Link className="header__logo-link" to="/">
                 <img
                   className="header__logo"
-                  src="img/logo.svg"
+                  src="markup/img/logo.svg"
                   alt="6 cities logo"
                   width="81"
                   height="41"
@@ -41,11 +42,11 @@ const FavoritesScreen: FC<FavoritesScreenProps> = ({ offers }) => {
                     className="header__nav-link header__nav-link--profile"
                     to="/favorites"
                   >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <div className="header__avatar-wrapper user__avatar-wrapper" />
                     <span className="header__user-name user__name">
                       Oliver.conner@gmail.com
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favs.length}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
@@ -64,12 +65,12 @@ const FavoritesScreen: FC<FavoritesScreenProps> = ({ offers }) => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {Object.entries(groups).map(([city, cityOffers]) => (
-                <li className="favorites__locations-items" key={city}>
+              {Object.entries(groups).map(([cityName, cityOffers]) => (
+                <li className="favorites__locations-items" key={cityName}>
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
                       <Link className="locations__item-link" to="/">
-                        <span>{city}</span>
+                        <span>{cityName}</span>
                       </Link>
                     </div>
                   </div>
@@ -92,7 +93,7 @@ const FavoritesScreen: FC<FavoritesScreenProps> = ({ offers }) => {
         <Link className="footer__logo-link" to="/">
           <img
             className="footer__logo"
-            src="img/logo.svg"
+            src="markup/img/logo.svg"
             alt="6 cities logo"
             width="64"
             height="33"
