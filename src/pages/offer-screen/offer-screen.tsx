@@ -7,7 +7,7 @@ import ReviewsList from '../../components/review/reviews-list';
 import { REVIEWS } from '../../components/review/constants';
 import ReviewForm from '../review-form/review-form';
 import Map from '../../components/map/map';
-import OffersList from '../offers-list/offers-list';
+import NearbyOffers from '../../components/nearby-offers/nearby-offers';
 
 const OfferScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -154,7 +154,7 @@ const OfferScreen: FC = () => {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList offers={nearby} className="near-places__list places__list" imageWidth={260} imageHeight={200} />
+            <NearbyOffers offers={nearby} />
           </section>
         </div>
       </main>
