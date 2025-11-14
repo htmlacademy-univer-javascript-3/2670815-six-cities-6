@@ -1,0 +1,6 @@
+{
+  "buildCommand": "build",
+  "node": "18",
+  "sandboxes": ["/"],
+  "installCommand": "npm install"
+}
