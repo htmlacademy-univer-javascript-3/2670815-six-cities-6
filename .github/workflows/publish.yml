@@ -36,13 +36,6 @@ jobs:
           target-folder: ${{ env.PR }}
           commit-message: '✔️ Сборка #${{ env.PR }}'
 
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            Ваш пулреквест опубликован. Посмотреть можно [здесь](https://${{ env.BUILD_URL }}/${{ env.PR }}/)
-          pr_number: ${{ env.PR }}
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -52,6 +45,15 @@ jobs:
         run: npm ci
 
       - name: Publish to Chromatic
+        id: chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Ваш пулреквест опубликован. Посмотреть можно [здесь](https://${{ env.BUILD_URL }}/${{ env.PR }}/)
+            📚 Storybook: ${{ steps.chromatic.outputs.storybookUrl }}
+          pr_number: ${{ env.PR }}
