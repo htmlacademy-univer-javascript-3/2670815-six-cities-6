@@ -24,29 +24,3 @@ jobs:
 
       - name: Run checks
         run: npm test && npm run lint
-
-  chromatic:
-    name: Run Chromatic
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Comment PR with Storybook link
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            💻 **Open in CodeSandbox:**
-            https://githubbox.com/${{ github.repository }}/tree/${{ github.head_ref }}
-          pr_number: ${{ github.event.pull_request.number }}
