@@ -26,6 +26,7 @@ const MainScreen: FC<MainScreenProps> = ({ offers }) => {
   const currentCity = useSelector((state: RootState) => state.currentCity);
   const dispatch = useDispatch();
   const [currentSorting, setCurrentSorting] = useState<SortingOption>(DEFAULT_SORTING);
+  const [selectedOfferId, setSelectedOfferId] = useState<string | null>(null);
 
   const filteredOffers = useMemo(() => (
     offers.filter((o) => o.city.name === currentCity)
@@ -37,11 +38,16 @@ const MainScreen: FC<MainScreenProps> = ({ offers }) => {
 
   const points = useMemo<Point[]>(() => (
     sortedOffers.map((o) => ({
+      id: o.id,
       title: o.title,
       lat: o.location.latitude,
       lng: o.location.longitude,
     }))
   ), [sortedOffers]);
+
+  const selectedPoint = useMemo(() => (
+    selectedOfferId ? points.find((p) => p.id === selectedOfferId) : undefined
+  ), [selectedOfferId, points]);
 
   const city = sortedOffers[0]?.city || offers[0]?.city;
 
@@ -105,11 +111,14 @@ const MainScreen: FC<MainScreenProps> = ({ offers }) => {
                 currentSorting={currentSorting}
                 onSortingChange={setCurrentSorting}
               />
-              <OffersList offers={sortedOffers}/>
+              <OffersList
+                offers={sortedOffers}
+                onActiveOfferChange={setSelectedOfferId}
+              />
             </section>
             <div className="cities__right-section">
               {city ? (
-                <Map city={city} points={points} selectedPoint={undefined}/>
+                <Map city={city} points={points} selectedPoint={selectedPoint}/>
               ) : (
                 <section className="cities__map map"></section>
               )}
