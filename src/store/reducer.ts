@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Offer } from '../mocks/offers';
+import { Offer } from '../types/offer';
 import { setCity, setOffers } from './action';
 
 type OffersState = {

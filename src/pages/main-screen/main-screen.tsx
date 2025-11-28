@@ -5,7 +5,7 @@
  */
 import { type FC, useMemo } from 'react';
 import OffersList from '../offers-list/offers-list';
-import type { Offer } from '../../mocks/offers';
+import type { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import type { Point } from '../../components/map/types';
 import Map from '../../components/map/map';

@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import OFFERS from '../../mocks/offers';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { getRatingWidth } from '../place-card/utils';
 import ReviewsList from '../../components/review/reviews-list';
@@ -10,8 +9,9 @@ import Map from '../../components/map/map';
 import NearbyOffers from '../../components/nearby-offers/nearby-offers';
 
 const OfferScreen: FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const offer = OFFERS.find((o) => o.id === id);
+  useParams<{ id: string }>();
+  // TODO: Load offer from server
+  const offer = null;
 
   if (!offer) {
     return <NotFoundScreen />;
@@ -20,8 +20,8 @@ const OfferScreen: FC = () => {
   const images = [offer.previewImage];
   const ratingWidth = getRatingWidth(offer.rating);
   const reviews = REVIEWS;
-  const nearby = OFFERS.filter((o) => o.id !== offer.id).slice(0, 3);
-  const points = nearby.map((p) => ({ title: p.title, lat: p.location.latitude, lng: p.location.longitude }));
+  const nearby = [];
+  const points = nearby.map((p: any) => ({ id: p.id, title: p.title, lat: p.location.latitude, lng: p.location.longitude }));
 
   return (
     <div className="page">
