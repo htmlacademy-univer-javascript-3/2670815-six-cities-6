@@ -146,7 +146,7 @@ const MainScreen: FC = () => {
                   </li>
                 </ul>
               </form>
-              <OffersList offers={offers}/>
+              <OffersList offers={filteredOffers}/>
             </section>
             <div className="cities__right-section">
               {city ? (

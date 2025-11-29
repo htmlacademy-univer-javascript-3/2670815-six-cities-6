@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Offer } from '../types/offer';
-import { setCity, setOffers, fetchOffers, fetchOffer } from './action';
+import { setCity, setOffers, fetchOffers, fetchOffer, fetchNearbyOffers } from './action';
 
 type OffersState = {
   currentCity: string;
@@ -10,6 +10,9 @@ type OffersState = {
   currentOffer: Offer | null;
   isOfferLoading: boolean;
   hasOfferError: boolean;
+  nearbyOffers: Offer[];
+  isNearbyOffersLoading: boolean;
+  hasNearbyOffersError: boolean;
 };
 
 const initialState: OffersState = {
@@ -20,6 +23,9 @@ const initialState: OffersState = {
   currentOffer: null,
   isOfferLoading: false,
   hasOfferError: false,
+  nearbyOffers: [],
+  isNearbyOffersLoading: false,
+  hasNearbyOffersError: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -53,6 +59,18 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffer.rejected, (state) => {
       state.isOfferLoading = false;
       state.hasOfferError = true;
+    })
+    .addCase(fetchNearbyOffers.pending, (state) => {
+      state.isNearbyOffersLoading = true;
+      state.hasNearbyOffersError = false;
+    })
+    .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
+      state.nearbyOffers = action.payload;
+      state.isNearbyOffersLoading = false;
+    })
+    .addCase(fetchNearbyOffers.rejected, (state) => {
+      state.isNearbyOffersLoading = false;
+      state.hasNearbyOffersError = true;
     });
 });
 

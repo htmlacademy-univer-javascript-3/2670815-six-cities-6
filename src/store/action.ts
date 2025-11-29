@@ -23,3 +23,12 @@ export const fetchOffer = createAsyncThunk<
   const { data } = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
   return data;
 });
+
+export const fetchNearbyOffers = createAsyncThunk<
+  Offer[],
+  string,
+  { extra: AxiosInstance }
+>('data/fetchNearbyOffers', async (offerId, { extra: api }) => {
+  const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${offerId}/nearby`);
+  return data;
+});
