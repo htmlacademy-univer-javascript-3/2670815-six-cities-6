@@ -3,13 +3,17 @@
  * Временная крупная монолитная версия, созданная на основе разметки из markup/main.html.
  * В дальнейшем будет декомпозирован на подкомпоненты.
  */
-import { type FC, useMemo } from 'react';
+import { type FC, useMemo, useState } from 'react';
 import OffersList from '../offers-list/offers-list';
 import type { Offer } from '../../mocks/offers';
 import { Link } from 'react-router-dom';
 import type { Point } from '../../components/map/types';
 import Map from '../../components/map/map';
 import CitiesList from '../../components/cities-list/cities-list';
+import SortingOptions from '../../components/sorting-options/sorting-options';
+import { DEFAULT_SORTING } from '../../components/sorting-options/constants';
+import type { SortingOption } from '../../components/sorting-options/types';
+import { sortOffers } from '../../components/sorting-options/utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCity } from '../../store/action';
 import type { RootState } from '../../store';
@@ -21,20 +25,31 @@ type MainScreenProps = {
 const MainScreen: FC<MainScreenProps> = ({ offers }) => {
   const currentCity = useSelector((state: RootState) => state.currentCity);
   const dispatch = useDispatch();
+  const [currentSorting, setCurrentSorting] = useState<SortingOption>(DEFAULT_SORTING);
+  const [selectedOfferId, setSelectedOfferId] = useState<string | null>(null);
 
   const filteredOffers = useMemo(() => (
     offers.filter((o) => o.city.name === currentCity)
   ), [offers, currentCity]);
 
+  const sortedOffers = useMemo(() => (
+    sortOffers(filteredOffers, currentSorting)
+  ), [filteredOffers, currentSorting]);
+
   const points = useMemo<Point[]>(() => (
-    filteredOffers.map((o) => ({
+    sortedOffers.map((o) => ({
+      id: o.id,
       title: o.title,
       lat: o.location.latitude,
       lng: o.location.longitude,
     }))
-  ), [filteredOffers]);
+  ), [sortedOffers]);
 
-  const city = filteredOffers[0]?.city || offers[0]?.city;
+  const selectedPoint = useMemo(() => (
+    selectedOfferId ? points.find((p) => p.id === selectedOfferId) : undefined
+  ), [selectedOfferId, points]);
+
+  const city = sortedOffers[0]?.city || offers[0]?.city;
 
   return (
     <div className="page page--gray page--main">
@@ -91,35 +106,19 @@ const MainScreen: FC<MainScreenProps> = ({ offers }) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffers.length} places to stay in {currentCity}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>
-                    Popular
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                    Price: low to high
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                    Price: high to low
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                    Top rated first
-                  </li>
-                </ul>
-              </form>
-              <OffersList offers={offers}/>
+              <b className="places__found">{sortedOffers.length} places to stay in {currentCity}</b>
+              <SortingOptions
+                currentSorting={currentSorting}
+                onSortingChange={setCurrentSorting}
+              />
+              <OffersList
+                offers={sortedOffers}
+                onActiveOfferChange={setSelectedOfferId}
+              />
             </section>
             <div className="cities__right-section">
               {city ? (
-                <Map city={city} points={points} selectedPoint={undefined}/>
+                <Map city={city} points={points} selectedPoint={selectedPoint}/>
               ) : (
                 <section className="cities__map map"></section>
               )}

@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 const amsterdamCity = OFFERS[0].city;
 
 const points: Points = OFFERS.map((offer) => ({
+  id: offer.id,
   title: offer.title,
   lat: offer.location.latitude,
   lng: offer.location.longitude,
