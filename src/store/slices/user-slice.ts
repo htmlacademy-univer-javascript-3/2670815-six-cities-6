@@ -16,7 +16,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setAuthorizationStatus: (state, action) => {
+    setAuthorizationStatus: (state, action: { payload: AuthorizationStatus }) => {
       state.authorizationStatus = action.payload;
     },
   },

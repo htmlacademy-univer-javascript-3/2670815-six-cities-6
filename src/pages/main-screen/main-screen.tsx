@@ -48,8 +48,8 @@ const MainScreen: FC = () => {
     selectedOfferId ? points.find((p) => p.id === selectedOfferId) : undefined
   ), [selectedOfferId, points]);
 
-  const handleCityChange = useCallback((city: string) => {
-    dispatch(setCity(city));
+  const handleCityChange = useCallback((cityName: string) => {
+    dispatch(setCity(cityName));
   }, [dispatch]);
 
   const handleSortingChange = useCallback((sorting: SortingOption) => {

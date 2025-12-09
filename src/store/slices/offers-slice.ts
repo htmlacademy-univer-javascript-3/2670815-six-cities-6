@@ -32,10 +32,10 @@ const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    setCity: (state, action) => {
+    setCity: (state, action: { payload: string }) => {
       state.currentCity = action.payload;
     },
-    setOffers: (state, action) => {
+    setOffers: (state, action: { payload: Offer[] }) => {
       state.offers = action.payload;
     },
   },
