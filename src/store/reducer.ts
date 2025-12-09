@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Offer } from '../types/offer';
-import { setCity, setOffers, fetchOffers, fetchOffer, fetchNearbyOffers } from './action';
+import { AuthorizationStatus, UserData } from '../types/auth';
+import { setCity, setOffers, fetchOffers, fetchOffer, fetchNearbyOffers, checkAuth, login, logout } from './action';
 
 type OffersState = {
   currentCity: string;
@@ -13,6 +14,8 @@ type OffersState = {
   nearbyOffers: Offer[];
   isNearbyOffersLoading: boolean;
   hasNearbyOffersError: boolean;
+  authorizationStatus: AuthorizationStatus;
+  user: UserData | null;
 };
 
 const initialState: OffersState = {
@@ -26,6 +29,8 @@ const initialState: OffersState = {
   nearbyOffers: [],
   isNearbyOffersLoading: false,
   hasNearbyOffersError: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -71,6 +76,24 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchNearbyOffers.rejected, (state) => {
       state.isNearbyOffersLoading = false;
       state.hasNearbyOffersError = true;
+    })
+    .addCase(checkAuth.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+      state.user = action.payload;
+    })
+    .addCase(checkAuth.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(login.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+      state.user = action.payload;
+    })
+    .addCase(login.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(logout.fulfilled, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.user = null;
     });
 });
 
