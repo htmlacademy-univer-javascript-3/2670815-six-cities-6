@@ -91,4 +91,7 @@ const Header: FC<HeaderProps> = ({ isMainPage = false }) => {
   );
 };
 
-export default memo(Header);
+const MemoizedHeader = memo(Header);
+MemoizedHeader.displayName = 'Header';
+
+export default MemoizedHeader;
