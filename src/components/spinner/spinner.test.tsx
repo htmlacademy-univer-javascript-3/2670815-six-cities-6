@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Spinner from './spinner';
 
 describe('Spinner', () => {
@@ -16,6 +16,6 @@ describe('Spinner', () => {
     const spinner = container.querySelector('.spinner');
     const circle = container.querySelector('.spinner__circle');
 
-    expect(spinner).toContainElement(circle);
+    expect(spinner).toContainElement(circle as HTMLElement);
   });
 });
