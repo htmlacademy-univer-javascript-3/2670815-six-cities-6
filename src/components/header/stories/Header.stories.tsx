@@ -58,7 +58,11 @@ export const NotAuthenticated: Story = {
             authorizationStatus: AuthorizationStatus.NoAuth,
             user: null,
           },
-          favorites: [],
+          favorites: {
+            favorites: [],
+            isFavoritesLoading: false,
+            hasFavoritesError: false,
+          },
         },
       });
       return (
@@ -83,7 +87,11 @@ export const Authenticated: Story = {
             authorizationStatus: AuthorizationStatus.Auth,
             user: mockUser,
           },
-          favorites: [],
+          favorites: {
+            favorites: [],
+            isFavoritesLoading: false,
+            hasFavoritesError: false,
+          },
         },
       });
       return (
@@ -113,7 +121,11 @@ export const MainPageNotAuthenticated: Story = {
             authorizationStatus: AuthorizationStatus.NoAuth,
             user: null,
           },
-          favorites: [],
+          favorites: {
+            favorites: [],
+            isFavoritesLoading: false,
+            hasFavoritesError: false,
+          },
         },
       });
       return (
@@ -141,7 +153,11 @@ export const MainPageAuthenticated: Story = {
             authorizationStatus: AuthorizationStatus.Auth,
             user: mockUser,
           },
-          favorites: [],
+          favorites: {
+            favorites: [],
+            isFavoritesLoading: false,
+            hasFavoritesError: false,
+          },
         },
       });
       return (
