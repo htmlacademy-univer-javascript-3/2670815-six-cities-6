@@ -1,11 +1,13 @@
 import type { FC, FormEvent } from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../store';
-import { login } from '../../store/action';
+import { login, setCity } from '../../store/action';
 import { AuthorizationStatus } from '../../types/auth';
 import { selectAuthorizationStatus } from '../../store/selectors';
+
+const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 const LoginScreen: FC = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +16,12 @@ const LoginScreen: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const authorizationStatus = useSelector(selectAuthorizationStatus);
+
+  // Get a random city for the quick navigation button
+  const randomCity = useMemo(() => {
+    const randomIndex = Math.floor(Math.random() * CITIES.length);
+    return CITIES[randomIndex];
+  }, []);
 
   // Если пользователь уже авторизован, перенаправляем на главную
   useEffect(() => {
@@ -108,9 +116,16 @@ const LoginScreen: FC = () => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
-                <span>Amsterdam</span>
-              </Link>
+              <button
+                className="locations__item-link"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                onClick={() => {
+                  dispatch(setCity(randomCity));
+                  navigate('/');
+                }}
+              >
+                <span>{randomCity}</span>
+              </button>
             </div>
           </section>
         </div>

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store';
 import { logout } from '../../store/action';
 import { AuthorizationStatus } from '../../types/auth';
-import { selectAuthorizationStatus, selectUser } from '../../store/selectors';
+import { selectAuthorizationStatus, selectUser, selectFavorites } from '../../store/selectors';
 
 type HeaderProps = {
   isMainPage?: boolean;
@@ -14,6 +14,7 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({ isMainPage = false }) => {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const user = useSelector(selectUser);
+  const favorites = useSelector(selectFavorites);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogout = useCallback(() => {
@@ -59,7 +60,7 @@ const Header: FC<HeaderProps> = ({ isMainPage = false }) => {
                       <span className="header__user-name user__name">
                         {user?.email}
                       </span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favorites.length}</span>
                     </Link>
                   </li>
                   <li className="header__nav-item">

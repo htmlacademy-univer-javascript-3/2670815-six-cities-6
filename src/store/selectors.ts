@@ -4,6 +4,8 @@ import { sortOffers } from '../components/sorting-options/utils';
 import type { SortingOption } from '../components/sorting-options/types';
 import type { Offer } from '../types/offer';
 
+const MAX_REVIEWS_COUNT = 10;
+
 // Базовые селекторы
 export const selectCurrentCity = (state: RootState) => state.offers.currentCity;
 export const selectOffers = (state: RootState) => state.offers.offers;
@@ -77,4 +79,13 @@ export const selectFavoritesByCity = createSelector(
     }, {});
     return grouped;
   }
+);
+
+export const selectSortedComments = createSelector(
+  [selectComments],
+  (comments) =>
+    comments
+      .slice()
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, MAX_REVIEWS_COUNT)
 );
