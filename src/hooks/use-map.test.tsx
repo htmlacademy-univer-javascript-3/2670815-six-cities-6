@@ -4,20 +4,16 @@ import useMap from './use-map';
 import * as leaflet from 'leaflet';
 
 // Mock leaflet
-vi.mock('leaflet', async () => {
-  const actual = await vi.importActual('leaflet');
-  return {
-    ...(actual as any),
-    Map: vi.fn().mockImplementation(() => ({
-      setView: vi.fn(),
-      addLayer: vi.fn(),
-      removeLayer: vi.fn(),
-    })),
-    TileLayer: vi.fn().mockImplementation(() => ({
-      addTo: vi.fn(),
-    })),
-  };
-});
+vi.mock('leaflet', () => ({
+  Map: vi.fn().mockImplementation(() => ({
+    setView: vi.fn(),
+    addLayer: vi.fn(),
+    removeLayer: vi.fn(),
+  })),
+  TileLayer: vi.fn().mockImplementation(() => ({
+    addTo: vi.fn(),
+  })),
+}));
 
 describe('useMap', () => {
   const mockCity = {
