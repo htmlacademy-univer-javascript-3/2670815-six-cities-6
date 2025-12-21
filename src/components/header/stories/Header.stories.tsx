@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import Header from '../header';
 import userReducer from '../../../store/slices/user-slice';
+import favoritesReducer from '../../../store/slices/favorites-slice';
 import { AuthorizationStatus } from '../../../types/auth';
 import type { UserData } from '../../../types/auth';
 
@@ -27,6 +28,7 @@ const meta = {
       const store = configureStore({
         reducer: {
           user: userReducer,
+          favorites: favoritesReducer,
         },
       });
       return (
@@ -49,19 +51,19 @@ export const NotAuthenticated: Story = {
       const store = configureStore({
         reducer: {
           user: userReducer,
+          favorites: favoritesReducer,
         },
         preloadedState: {
           user: {
             authorizationStatus: AuthorizationStatus.NoAuth,
             user: null,
           },
+          favorites: [],
         },
       });
       return (
         <Provider store={store}>
-          <BrowserRouter>
-            <Story />
-          </BrowserRouter>
+          <Story />
         </Provider>
       );
     },
@@ -74,12 +76,14 @@ export const Authenticated: Story = {
       const store = configureStore({
         reducer: {
           user: userReducer,
+          favorites: favoritesReducer,
         },
         preloadedState: {
           user: {
             authorizationStatus: AuthorizationStatus.Auth,
             user: mockUser,
           },
+          favorites: [],
         },
       });
       return (
@@ -102,19 +106,19 @@ export const MainPageNotAuthenticated: Story = {
       const store = configureStore({
         reducer: {
           user: userReducer,
+          favorites: favoritesReducer,
         },
         preloadedState: {
           user: {
             authorizationStatus: AuthorizationStatus.NoAuth,
             user: null,
           },
+          favorites: [],
         },
       });
       return (
         <Provider store={store}>
-          <BrowserRouter>
-            <Story />
-          </BrowserRouter>
+          <Story />
         </Provider>
       );
     },
@@ -130,12 +134,14 @@ export const MainPageAuthenticated: Story = {
       const store = configureStore({
         reducer: {
           user: userReducer,
+          favorites: favoritesReducer,
         },
         preloadedState: {
           user: {
             authorizationStatus: AuthorizationStatus.Auth,
             user: mockUser,
           },
+          favorites: [],
         },
       });
       return (

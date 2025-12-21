@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { configureStore } from '@reduxjs/toolkit';
 import NearbyOffers from '../nearby-offers';
+import favoritesReducer from '../../../store/slices/favorites-slice';
+import userReducer from '../../../store/slices/user-slice';
 import type { Offer } from '../../../types/offer';
 
 const meta = {
@@ -11,11 +15,21 @@ const meta = {
   },
   tags: ['autodocs'],
   decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
+    (Story) => {
+      const store = configureStore({
+        reducer: {
+          user: userReducer,
+          favorites: favoritesReducer,
+        },
+      });
+      return (
+        <Provider store={store}>
+          <BrowserRouter>
+            <Story />
+          </BrowserRouter>
+        </Provider>
+      );
+    },
   ],
 } satisfies Meta<typeof NearbyOffers>;
 
