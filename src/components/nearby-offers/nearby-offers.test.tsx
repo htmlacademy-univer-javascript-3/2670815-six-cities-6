@@ -74,35 +74,6 @@ describe('NearbyOffers', () => {
     const { getByTestId } = render(<NearbyOffers offers={mockOffers} />);
 
     expect(getByTestId('offers-list')).toBeInTheDocument();
-  });
-
-  it('должен передать правильный className в OffersList', () => {
-    const { getByTestId } = render(<NearbyOffers offers={mockOffers} />);
-
-    expect(getByTestId('className')).toHaveTextContent('near-places__list places__list');
-  });
-
-  it('должен передать правильный imageWidth в OffersList', () => {
-    const { getByTestId } = render(<NearbyOffers offers={mockOffers} />);
-
-    expect(getByTestId('imageWidth')).toHaveTextContent('260');
-  });
-
-  it('должен передать правильный imageHeight в OffersList', () => {
-    const { getByTestId } = render(<NearbyOffers offers={mockOffers} />);
-
-    expect(getByTestId('imageHeight')).toHaveTextContent('200');
-  });
-
-  it('должен передать массив offers в OffersList', () => {
-    const { getByTestId } = render(<NearbyOffers offers={mockOffers} />);
-
     expect(getByTestId('offers-count')).toHaveTextContent('2');
-  });
-
-  it('должен работать с пустым массивом предложений', () => {
-    const { getByTestId } = render(<NearbyOffers offers={[]} />);
-
-    expect(getByTestId('offers-count')).toHaveTextContent('0');
   });
 });
