@@ -6,6 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { MemoryRouter } from 'react-router-dom';
 import Header from './header';
 import userReducer from '../../store/slices/user-slice';
+import favoritesReducer from '../../store/slices/favorites-slice';
 import { AuthorizationStatus, type UserData } from '../../types/auth';
 
 describe('Header', () => {
@@ -13,11 +14,17 @@ describe('Header', () => {
     configureStore({
       reducer: {
         user: userReducer,
+        favorites: favoritesReducer,
       },
       preloadedState: {
         user: {
           authorizationStatus: authStatus,
           user,
+        },
+        favorites: {
+          favorites: [],
+          isFavoritesLoading: false,
+          hasFavoritesError: false,
         },
       },
     });

@@ -18,7 +18,7 @@ import {
   selectIsOfferLoading,
   selectHasOfferError,
   selectNearbyOffers,
-  selectComments,
+  selectSortedComments,
   selectAuthorizationStatus,
 } from '../../store/selectors';
 
@@ -31,7 +31,7 @@ const OfferScreen: FC = () => {
   const isOfferLoading = useSelector(selectIsOfferLoading);
   const hasOfferError = useSelector(selectHasOfferError);
   const nearbyOffers = useSelector(selectNearbyOffers);
-  const comments = useSelector(selectComments);
+  const comments = useSelector(selectSortedComments);
   const authorizationStatus = useSelector(selectAuthorizationStatus);
 
   useEffect(() => {

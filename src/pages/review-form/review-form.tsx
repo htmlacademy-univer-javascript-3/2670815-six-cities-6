@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../store';
 import { postComment } from '../../store/action';
 import { selectIsCommentPosting } from '../../store/selectors';
+import { REVIEW_MIN_LENGTH, RATING_MAX } from './constants';
 
 export type ReviewFormProps = {
   offerId: string;
@@ -32,7 +33,7 @@ const ReviewForm: FC<ReviewFormProps> = ({ offerId }) => {
 
   const isValid = useMemo(() => {
     const length = comment.trim().length;
-    return rating !== null && length >= 50;
+    return rating !== null && length >= REVIEW_MIN_LENGTH;
   }, [rating, comment]);
 
   const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
@@ -64,11 +65,11 @@ const ReviewForm: FC<ReviewFormProps> = ({ offerId }) => {
         <input
           className="form__rating-input visually-hidden"
           name="rating"
-          value={5}
+          value={RATING_MAX}
           id="5-stars"
           type="radio"
           onChange={handleRatingChange}
-          checked={rating === 5}
+          checked={rating === RATING_MAX}
           disabled={isCommentPosting}
         />
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">

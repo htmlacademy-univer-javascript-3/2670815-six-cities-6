@@ -110,17 +110,25 @@ const MainScreen: FC = () => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{sortedOffers.length} places to stay in {currentCity}</b>
-              <SortingOptions
-                currentSorting={currentSorting}
-                onSortingChange={handleSortingChange}
-              />
-              <OffersList
-                offers={sortedOffers}
-                onActiveOfferChange={handleOfferHover}
-              />
+              {sortedOffers.length > 0 ? (
+                <>
+                  <SortingOptions
+                    currentSorting={currentSorting}
+                    onSortingChange={handleSortingChange}
+                  />
+                  <OffersList
+                    offers={sortedOffers}
+                    onActiveOfferChange={handleOfferHover}
+                  />
+                </>
+              ) : (
+                <div className="places__empty">
+                  <p>No places to stay available</p>
+                </div>
+              )}
             </section>
             <div className="cities__right-section">
-              {city ? (
+              {sortedOffers.length > 0 && city ? (
                 <Map city={city} points={points} selectedPoint={selectedPoint}/>
               ) : (
                 <section className="cities__map map"></section>
